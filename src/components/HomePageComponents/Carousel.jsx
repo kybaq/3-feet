@@ -3,9 +3,6 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 
 import { Link } from "react-router-dom";
-import SeeMoreIcon from "../../assets/Icons/see_more_icon.png";
-import Samsung from "../../assets/Logos/Samsung_Lions.png";
-import CarouselItem from "./CarouselItem";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -67,23 +64,11 @@ function Carousel({ title }) {
         <h3 className="font-bold text-4xl mb-6">{title}</h3>
         <div className="flex items-center hover:text-gray-600 hover:outline rounded-lg">
           <Link className="font-bold mr-1">더보기</Link>
-          <img src={SeeMoreIcon} className="w-5 mr-2" />
+          <img src={""} className="w-5 mr-2" />
         </div>
       </div>
 
-      <Slider {...settings}>
-        <CarouselItem src={Samsung} title={title} />
-        <CarouselItem src={Samsung} title={title} />
-        <CarouselItem src={Samsung} title={title} />
-        <CarouselItem src={Samsung} title={title} />
-        <CarouselItem src={Samsung} title={title} />
-        <CarouselItem src={Samsung} title={title} />
-        <CarouselItem src={Samsung} title={title} />
-        <CarouselItem src={Samsung} title={title} />
-        <CarouselItem src={Samsung} title={title} />
-        <CarouselItem src={Samsung} title={title} />
-        <CarouselItem src={Samsung} title={title} />
-      </Slider>
+      <Slider {...settings}>{/* <CarouselItem src={Samsung} title={title} /> */}</Slider>
     </div>
   );
 }
