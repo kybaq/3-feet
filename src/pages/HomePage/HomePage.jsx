@@ -1,29 +1,25 @@
+
+import Banner from "../../components/HomePageComponent/Banner";
+import Carousel from "../../components/HomePageComponent/Carousel";
+import ClubButtons from "../../components/HomePageComponent/ClubButtons";
+
 function HomePage() {
   return (
-    <div>
-      <p className="text-2xl text-primary-blue">색상 테스트</p>
-      <p className="text-2xl text-secondary-color">색상 테스트</p>
-      <br />
-      <p className="text-2xl text-black-100">색상 테스트</p>
-      <p className="text-2xl text-black-200">색상 테스트</p>
-      <p className="text-2xl text-black-300">색상 테스트</p>
-      <p className="text-2xl text-black-400">색상 테스트</p>
-      <p className="text-2xl text-black-500">색상 테스트</p>
-      <p className="text-2xl text-black-600">색상 테스트</p>
-      <p className="text-2xl text-black-700">색상 테스트</p>
-      <p className="text-2xl text-black-800">색상 테스트</p>
-      <p className="text-2xl text-black-900">색상 테스트</p>
-      <br />
-
-      <p className="text-2xl text-blue-100">색상 테스트</p>
-      <p className="text-2xl text-blue-200">색상 테스트</p>
-      <p className="text-2xl text-blue-300">색상 테스트</p>
-      <p className="text-2xl text-blue-400">색상 테스트</p>
-      <p className="text-2xl text-blue-500">색상 테스트</p>
-      <p className="text-2xl text-blue-600">색상 테스트</p>
-      <p className="text-2xl text-blue-700">색상 테스트</p>
-      <p className="text-2xl text-blue-800">색상 테스트</p>
-      <p className="text-2xl text-blue-900">색상 테스트</p>
+    <div className="flex flex-col gap-y-10 w-[1320px] mx-auto sm:max-w-full sm:px-6 mt-4 ">
+      <div className="bg-gray-400 bg-opacity-25 rounded-[10px]  w-auto h-[404px]">
+        <ClubButtons />
+      </div>
+      <div className="bg-blue-300 h-30">
+        <Banner />
+      </div>
+      <div className="flex  flex-col gap-y-10">
+        <div>
+          <Carousel title={"맛집정보"} />
+        </div>
+        <div className="h-44">
+          <Carousel title={"숙박정보"} />
+        </div>
+      </div>
     </div>
   );
 }
