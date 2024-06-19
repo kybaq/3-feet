@@ -3,7 +3,7 @@ import Layout from "../components/Layouts/Layout";
 import HomePage from "../pages/HomePage/HomePage";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import SignUpPage from "../pages/SignUpPage/SingUpPage";
-
+import MyPage from "../pages/MyPage/MyPage";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +32,10 @@ const router = createBrowserRouter([
     //     // element: <DetailPage />,
     //   },
     // ],
+  },
+  {
+    path: "/mypage",
+    element: <MyPage />,
   },
 ]);
 
