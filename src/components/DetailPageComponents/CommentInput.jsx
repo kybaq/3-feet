@@ -22,11 +22,11 @@ function CommentInput() {
   };
 
   return (
-    <>
+    <div className="flex h-full">
       <textarea
         className="flex-1 px-3 py-3 text-sm outline-none overflow-hidden resize-none hover:text-black-500"
         rows="1"
-        maxLength="200"
+        maxLength="150"
         value={text}
         onChange={handleChange}
         placeholder="방문 기록을 남겨주세요(0/150)"
@@ -42,7 +42,7 @@ function CommentInput() {
           게시
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

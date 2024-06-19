@@ -20,35 +20,49 @@ function DetailPage({ images }) {
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis commodo eros, quis consectetur quam venenatis sit amet. Etiam scelerisque",
     },
     {
-      id: 1,
+      id: 2,
       username: "user_name",
       timeAgo: "1일",
       commentText:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis commodo eros, quis consectetur quam venenatis sit amet. Etiam scelerisque",
     },
     {
-      id: 1,
+      id: 3,
       username: "user_name",
       timeAgo: "1일",
       commentText:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis commodo eros, quis consectetur quam venenatis sit amet. Etiam scelerisque",
     },
     {
-      id: 1,
+      id: 4,
       username: "user_name",
       timeAgo: "1일",
       commentText:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis commodo eros, quis consectetur quam venenatis sit amet. Etiam scelerisque",
     },
     {
-      id: 1,
+      id: 5,
       username: "user_name",
       timeAgo: "1일",
       commentText:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis commodo eros, quis consectetur quam venenatis sit amet. Etiam scelerisque",
     },
     {
-      id: 1,
+      id: 6,
+      username: "user_name",
+      timeAgo: "1일",
+      commentText:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis commodo eros, quis consectetur quam venenatis sit amet. Etiam scelerisque",
+    },
+    {
+      id: 7,
+      username: "user_name",
+      timeAgo: "1일",
+      commentText:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis commodo eros, quis consectetur quam venenatis sit amet. Etiam scelerisque",
+    },
+    {
+      id: 8,
       username: "user_name",
       timeAgo: "1일",
       commentText:
@@ -63,28 +77,33 @@ function DetailPage({ images }) {
           <img src={images} alt="img" className="w-full h-full object-fill" />
         </div>
 
-        <div className="flex flex-col w-1/3 h-full overflow-auto">
-          <div className="flex items-center border-b border-b-1 border-b-black-300 mb-2 p-4">
-            <ShopProfile />
-          </div>
+        <div className="flex flex-col w-1/3 h-full overflow-hidden">
+          {/* <section className="overflow-auto"> */}
+          <div className="flex-1 overflow-auto">
+            <div className="flex items-center border-b border-b-1 border-b-black-300 mb-2 p-6">
+              <ShopProfile />
+            </div>
 
-          <div className="flex items-center p-4">본문이 들어갈 곳</div>
-          <div className="flex-1 items-center p-4">
-            <p>댓글</p>
-            {comments.map((comment) => (
-              <Comment
-                key={comment.id}
-                profileImage={images}
-                username={comment.username}
-                timeAgo={comment.timeAgo}
-                commentText={comment.commentText}
-              />
-            ))}
-          </div>
+            <div className="flex p-4">본문이 들어갈 곳</div>
 
-          <div className="fixed bottom-0 items-start border-t border-t-black-300 mt-4">
+            <div className="p-4">
+              <p>댓글</p>
+              {comments.map((comment) => (
+                <Comment
+                  key={comment.id}
+                  profileImage={images}
+                  username={comment.username}
+                  timeAgo={comment.timeAgo}
+                  commentText={comment.commentText}
+                />
+              ))}
+            </div>
+          </div>
+          {/* </section> */}
+
+          <section className="flex-none border-t border-t-black-300">
             <CommentInput />
-          </div>
+          </section>
         </div>
       </div>
     </BigModal>

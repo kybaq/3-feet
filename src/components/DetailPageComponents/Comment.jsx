@@ -7,8 +7,7 @@ function Comment({ profileImage, username, timeAgo, commentText: comment }) {
           <span className="font-semibold">{username}</span>
           <span className="text-gray-500 text-sm">{timeAgo}</span>
         </div>
-        <p>{comment}</p>
-        <div className="flex items-center space-x-4 text-gray-500 text-sm mt-1"></div>
+        <p className="flex items-center space-x-4 text-gray-500 text-sm">{comment}</p>
       </div>
     </div>
   );

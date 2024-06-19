@@ -26,7 +26,7 @@ function BigModal({ children }) {
       <div className="w-8 h-8">
         <img src={cancel} alt="x" className="fixed top-4 right-4 cursor-pointer" onClick={closeModal} />
       </div>
-      <div className="flex flex-col justify-start items-start max-w-[calc(100%-80px)] w-full max-h-[calc(100%-80px)] h-full m-10 bg-white">
+      <div className="flex flex-col justify-start items-start max-w-[calc(100%-80px)] w-full max-h-[calc(100%-80px)] h-full m-10 bg-white overflow-hidden">
         {children}
       </div>
     </div>
