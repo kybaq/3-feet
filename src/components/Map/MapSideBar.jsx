@@ -1,6 +1,6 @@
 import React from "react";
 import MapListItem from "./MapListItem";
-import ToggleButton from "./ToggleButton";
+import ToggleButton from "./SideBarButton";
 
 function MapSidebar() {
   const test = [{}];
