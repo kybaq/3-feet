@@ -68,7 +68,9 @@ function Carousel({ title }) {
       <div className="flex justify-between items-center">
         <h3 className="font-bold text-4xl mb-6">{title}</h3>
         <div className="flex items-center hover:text-gray-600 hover:outline rounded-lg">
-          <Link className="font-bold mr-1">더보기</Link>
+          <Link to="/map" className="font-bold mr-1">
+            더보기
+          </Link>
           <img src={magnifierPlus} className="w-5 mr-2" />
         </div>
       </div>
