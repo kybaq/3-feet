@@ -3,13 +3,11 @@ import { immer } from "zustand/middleware/immer";
 
 const useSelectedClubStore = create(
   immer((set) => ({
-    selectedClub: 0,
-    setSelectedClub: (clubId) =>
+    selectedClubId: 1,
+    setSelectedClubId: (clubId) =>
       set((state) => {
-        console.log("선택된 구단 아이디 :", clubId);
-        state.selectedClub = clubId;
+        state.selectedClubId = clubId;
       }),
   })),
 );
-
 export default useSelectedClubStore;
