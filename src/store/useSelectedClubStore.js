@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-const useSelectedClubIdStore = create(
+const useSelectedClubStore = create(
   immer((set) => ({
     selectedClubId: 1,
     setSelectedClubId: (clubId) =>
@@ -9,4 +9,4 @@ const useSelectedClubIdStore = create(
       }),
   })),
 );
-export default useSelectedClubIdStore;
+export default useSelectedClubStore;

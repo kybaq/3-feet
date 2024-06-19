@@ -1,7 +1,6 @@
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 
-import { useEffect } from "react";
 import Slider from "react-slick";
 
 // 화살표
@@ -24,10 +23,7 @@ function SamplePrevArrow(props) {
   );
 }
 
-function Carousel(list, isLoading) {
-  useEffect(() => {
-    console.log("보여지는 값 : ", list);
-  }, []);
+function Carousel(list, isLoading, isError) {
   const settings = {
     dots: true,
     infinite: false,
@@ -64,7 +60,8 @@ function Carousel(list, isLoading) {
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
   };
-  if (isLoading) return <div>로딩중</div>;
+  if (isLoading) return <div>로딩중....</div>;
+  if (isError) return <div>에러남...</div>;
   return (
     <Slider {...settings}>
       {/* list.map((value,index)=>{

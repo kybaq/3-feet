@@ -1,7 +1,7 @@
-import useSelectedClubIdStore from "../../store/useSelectedClubIdStore";
+import useSelectedClubStore from "../../store/useSelectedClubStore";
 
 function IconButton({ src, clubId }) {
-  const { setSelectedClubId } = useSelectedClubIdStore();
+  const { setSelectedClubId } = useSelectedClubStore();
 
   return (
     <button

@@ -1,36 +1,56 @@
 import tourismAPI from "./tourism.config";
 
-const SERVICE_KEY = import.meta.env.VITE_TOURISM_SERVICE_KEY;
+const SERVICE_KEY_DECODING = import.meta.env.VITE_TOURISM_SERVICE_KEY_DECODING;
+// const SERVICE_KEY_ENCODING = import.meta.env.VITE_TOURISM_SERVICE_KEY_ENCODING;
+
 const params = {
   MobileOS: "ETC",
   MobileApp: "AppTest",
   _type: "json",
-  serviceKey: SERVICE_KEY,
-  radius: "2000",
+  radius: "10000",
 };
-// mapX : 경도 좌표, mapY : 위도 좌표
+
+// mapX , longitude : 경도 좌표 /  mapY,latitude : 위도 좌표
+// 숙박리스트
 export const fetchLodgmentList = async (longitude, latitude) => {
   const path = "/locationBasedList1";
   try {
     const response = await tourismAPI.get(path, {
-      params: { ...params, mapX: longitude, mapY: latitude, contentTypeId: "32" },
+      params: {
+        ...params,
+        mapX: longitude,
+        mapY: latitude,
+        contentTypeId: "32",
+        serviceKey: SERVICE_KEY_DECODING,
+        arrange: "O",
+      },
     });
-    console.log(response.data);
-    return response;
+    // console.log("API 호출=>fetchLodgmentList", response.data.response.body.items.item);
+    // 반환데이터 [{,,,},{,,,},...]
+    return response.data.response.body.items.item;
   } catch (error) {
-    console.error("숙박시설 데이터 받아오는 중 에러 발생", error);
+    console.error(error);
   }
 };
 
+// 음식점 리스트
 export const fetchRestaurantList = async (longitude, latitude) => {
   const path = "/locationBasedList1";
   try {
     const response = await tourismAPI.get(path, {
-      params: { ...params, mapX: longitude, mapY: latitude, contentTypeId: "41" },
+      params: {
+        ...params,
+        mapX: longitude,
+        mapY: latitude,
+        contentTypeId: "39",
+        serviceKey: SERVICE_KEY_DECODING,
+        arrange: "O",
+      },
     });
-    console.log(response.data);
-    return response;
+    // console.log("API 호출=>fetchRestaurantList=>", response.data.response.body.items.item);
+    // 반환데이터 [{,,,},{,,,},...]
+    return response.data.response.body.items.item;
   } catch (error) {
-    console.error("음식점 데이터 받아오는 중 에러 발생", error);
+    console.error(error);
   }
 };
