@@ -10,7 +10,7 @@ function Modal({ children, onConfirm }) {
         {children}
         <div className=" flex justify-end gap-x-2 ">
           <button
-            className=" bg-blue-400 rounded-lg text-white font-semibold px-6 py-1 mt-2 hover:bg-blue-500"
+            className="bg-blue-400 rounded-lg text-white font-semibold px-6 py-1 mt-2 hover:bg-blue-500"
             onClick={() => {
               if (onConfirm) onConfirm();
               modal.close();
