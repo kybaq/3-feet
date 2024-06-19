@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../../apis/supabase/supabase.config";
+import supabase from "../../apis/supabase/supabase.config";
+
 
 function MyPage() {
   const [teams, setTeams] = useState([]);
@@ -77,7 +78,7 @@ function MyPage() {
   const onChangeFile = async (e) => {
     const avatarFile = e.target.files[0];
     console.log(avatarFile.name);
-    const { data, error } = await supabase.storage
+    const { error } = await supabase.storage
       .from("avatars")
       .upload(`${user.id}/${avatarFile.name}`, avatarFile, { upsert: true });
     console.log(error);
