@@ -5,7 +5,7 @@ import { fetchLodgmentList, fetchRestaurantList } from "../apis/tourism/tourism.
 export const useLodgmentList = (longitude, latitude) => {
   return useQuery({
     queryKey: ["lodgmentList", longitude, latitude],
-    queryFn: fetchLodgmentList(longitude, latitude),
+    queryFn: () => fetchLodgmentList(longitude, latitude),
   });
 };
 
@@ -13,6 +13,6 @@ export const useLodgmentList = (longitude, latitude) => {
 export const useRestaurantList = (longitude, latitude) => {
   return useQuery({
     queryKey: ["restaurantList", longitude, latitude],
-    queryFn: fetchRestaurantList(longitude, latitude),
+    queryFn: () => fetchRestaurantList(longitude, latitude),
   });
 };

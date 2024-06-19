@@ -25,7 +25,7 @@ export const fetchLodgmentList = async (longitude, latitude) => {
         arrange: "O",
       },
     });
-    // console.log("API 호출=>fetchLodgmentList", response.data.response.body.items.item);
+    console.log("API 호출=>fetchLodgmentList", response.data.response.body.items.item);
     // 반환데이터 [{,,,},{,,,},...]
     return response.data.response.body.items.item;
   } catch (error) {
@@ -47,7 +47,7 @@ export const fetchRestaurantList = async (longitude, latitude) => {
         arrange: "O",
       },
     });
-    // console.log("API 호출=>fetchRestaurantList=>", response.data.response.body.items.item);
+    //console.log("API 호출=>fetchRestaurantList=>", response.data.response.body.items.item);
     // 반환데이터 [{,,,},{,,,},...]
     return response.data.response.body.items.item;
   } catch (error) {
