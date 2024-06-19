@@ -6,6 +6,7 @@ export const fetchClubs = async () => {
     console.error("클럽 목록 받아오는 과정에서 에러 발생->", error);
     return;
   }
+  // 반환값 :  [ {id, name, latitude, longitude, logo_url, banner_url }, …]
   return data;
 };
 
@@ -15,5 +16,6 @@ export const fetchClubById = async (clubId) => {
     console.error("아이디 값에 따른 클럽 정보를 가져올 수 없습니다->", error);
     return;
   }
+  // 반환값 : {id, name, latitude, longitude, logo_url, banner_url }
   return data[0];
 };
