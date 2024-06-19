@@ -2,6 +2,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 
 import Slider from "react-slick";
+import CarouselItem from "./CarouselItem";
 
 // 화살표
 function SampleNextArrow(props) {
@@ -23,7 +24,7 @@ function SamplePrevArrow(props) {
   );
 }
 
-function Carousel(list, isLoading, isError) {
+function Carousel({ list, isLoading, isError }) {
   const settings = {
     dots: true,
     infinite: false,
@@ -63,14 +64,11 @@ function Carousel(list, isLoading, isError) {
   if (isLoading) return <div>로딩중....</div>;
   if (isError) return <div>에러남...</div>;
   return (
-
     <Slider {...settings}>
-      {/* list.map((value,index)=>{
-          
-    }) */}
-      {1}
+      {list.map((data) => {
+        return <CarouselItem key={data.contentId} src={data.firstimage} title={data.title} />;
+      })}
     </Slider>
-
   );
 }
 
