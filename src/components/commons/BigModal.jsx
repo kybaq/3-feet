@@ -3,10 +3,18 @@ import { useModal } from "../../contexts/modal.context.jsx";
 
 function BigModal({ children }) {
   const modal = useModal();
+  // const navigate = useNavigate();
+
+  const closeModal = () => {
+    modal.close();
+    window.history.back();
+    // navigate(-1);
+    // onClick();
+  };
 
   const handleBackgroundClick = (e) => {
     if (e.target === e.currentTarget) {
-      modal.close();
+      closeModal();
     }
   };
 
@@ -16,9 +24,11 @@ function BigModal({ children }) {
       onClick={handleBackgroundClick}
     >
       <div className="w-8 h-8">
-        <img src={cancel} alt="x" className="fixed top-4 right-4 cursor-pointer" onClick={() => modal.close()} />
+        <img src={cancel} alt="x" className="fixed top-4 right-4 cursor-pointer" onClick={closeModal} />
       </div>
-      <div className="flex flex-col justify-start items-start max-w-screen-xl w-full bg-white">{children}</div>
+      <div className="flex flex-col justify-start items-start max-w-[calc(100%-80px)] w-full max-h-[calc(100%-80px)] h-full m-10 bg-white">
+        {children}
+      </div>
     </div>
   );
 }

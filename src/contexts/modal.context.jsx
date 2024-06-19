@@ -33,6 +33,7 @@ export default function ModalProvider({ children }) {
   return (
     <ModalContext.Provider value={value}>
       {children}
+      {/* <Outlet /> */}
       {modalElement}
     </ModalContext.Provider>
   );

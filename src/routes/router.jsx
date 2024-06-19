@@ -18,10 +18,12 @@ const router = createBrowserRouter([
   {
     path: "/map",
     element: <Map />,
-  },
-  {
-    path: "map/detail/:id",
-    element: <DetailPage />,
+    children: [
+      {
+        path: "detail/:id",
+        element: <DetailPage />,
+      },
+    ],
   },
   {
     path: "/mypage",
