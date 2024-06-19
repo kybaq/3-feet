@@ -1,7 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../components/Layouts/Layout";
+import Map from "../pages/Map/Map";
+import HomePage from "../pages/HomePage/HomePage";
+import LoginPage from "../pages/LoginPage/LoginPage";
+import SignUpPage from "../pages/SignUpPage/SingUpPage";
 import MyPage from "../pages/MyPage/MyPage";
-import HomePage from "../pages/HomePage";
+import DetailPage from "./../pages/DetailPage/DetailPage";
 
 const router = createBrowserRouter([
   {
@@ -15,17 +19,20 @@ const router = createBrowserRouter([
         path: "/mypage",
         element: <MyPage />,
       },
+      { path: "/login", element: <LoginPage /> },
+      {
+        path: "/signup",
+        element: <SignUpPage />,
+      },
     ],
   },
   {
     path: "/map",
-    // element: <Map />,
-    // children: [
-    //   {
-    //     path: "/detail/:id",
-    //     // element: <DetailPage />,
-    //   },
-    // ],
+    element: <Map />,
+  },
+  {
+    path: "map/detail/:id",
+    element: <DetailPage />,
   },
 ]);
 

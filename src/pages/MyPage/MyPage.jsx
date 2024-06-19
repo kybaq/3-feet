@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../../apis/supabase/config";
+import { supabase } from "../../apis/supabase/supabase.config";
 
 function MyPage() {
   const [teams, setTeams] = useState([]);

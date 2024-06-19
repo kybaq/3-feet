@@ -1,9 +1,12 @@
-import SSG_Banner from "../../assets/Banners/SSG_Landers_Banner.jpg";
-function Banner() {
+function Banner({ banner_url }) {
   return (
-    <div className="h-[190px] overflow-hidden flex justify-center items-center">
-      <img src={SSG_Banner} className="max-w-full h-auto scale-125" />
-    </div>
+    <>
+      {banner_url !== 0 && (
+        <div className="h-[190px] overflow-hidden flex justify-center items-center">
+          <img src={banner_url} className="max-w-full h-auto scale-125" />
+        </div>
+      )}
+    </>
   );
 }
 
