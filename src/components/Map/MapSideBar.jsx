@@ -3,7 +3,6 @@ import MapListItem from "./MapListItem";
 import ToggleButton from "./SideBarButton";
 
 function MapSidebar() {
-  const test = [{}];
   return (
     <aside
       id="list"
