@@ -2,8 +2,11 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 
+import magnifierPlus from "../../assets/Icons/magnifier-plus.png";
+
 import { Link } from "react-router-dom";
 
+// 화살표
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
@@ -12,15 +15,17 @@ function SampleNextArrow(props) {
     </div>
   );
 }
-
+// 화살표
 function SamplePrevArrow(props) {
   const { className, style, onClick } = props;
+
   return (
     <div className={`${className} `} onClick={onClick}>
       <div style={{ ...style, display: "flex" }} />
     </div>
   );
 }
+
 function Carousel({ title }) {
   const settings = {
     dots: true,
@@ -64,7 +69,7 @@ function Carousel({ title }) {
         <h3 className="font-bold text-4xl mb-6">{title}</h3>
         <div className="flex items-center hover:text-gray-600 hover:outline rounded-lg">
           <Link className="font-bold mr-1">더보기</Link>
-          <img src={""} className="w-5 mr-2" />
+          <img src={magnifierPlus} className="w-5 mr-2" />
         </div>
       </div>
 
@@ -73,7 +78,8 @@ function Carousel({ title }) {
   );
 }
 /* 
-<Slider {...settings}>
+<Slider 
+{...settings}>
           {list.map((value, index) => (
             <div>			// div로 컨텐츠 컴포넌트 감싸주기
               <SliderContent

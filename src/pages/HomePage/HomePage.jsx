@@ -8,9 +8,7 @@ function HomePage() {
       <div className="bg-gray-400 bg-opacity-25 rounded-[10px] w-auto h-[404px]">
         <ClubButtons />
       </div>
-      <div className="bg-blue-300 h-30">
-        <Banner />
-      </div>
+      <Banner />
       <div className="flex  flex-col gap-y-10">
         <div>
           <Carousel title={"맛집정보"} />
