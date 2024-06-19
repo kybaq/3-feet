@@ -6,7 +6,6 @@ const useSelectedClubStore = create(
     selectedClub: 0,
     setSelectedClub: (clubId) =>
       set((state) => {
-        console.log("선택된 구단 아이디 :", clubId);
         state.selectedClub = clubId;
       }),
   })),
