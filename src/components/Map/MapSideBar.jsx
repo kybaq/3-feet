@@ -2,7 +2,9 @@ import React from "react";
 import MapListItem from "./MapListItem";
 import ToggleButton from "./SideBarButton";
 
-function MapSidebar() {
+function MapSidebar({ lodgemnetList, restaurantList }) {
+  console.log(lodgemnetList, restaurantList);
+
   return (
     <aside
       id="list"

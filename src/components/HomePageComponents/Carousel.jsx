@@ -17,13 +17,13 @@ function SamplePrevArrow(props) {
   const { className, style, onClick } = props;
 
   return (
-    <div className={`${className} `} onClick={onClick}>
+    <div className={className} onClick={onClick}>
       <div style={{ ...style, display: "flex" }} />
     </div>
   );
 }
 
-function Carousel(list, isLoading, isError) {
+function Carousel({ list, isLoading, isError }) {
   const settings = {
     dots: true,
     infinite: false,
@@ -60,17 +60,21 @@ function Carousel(list, isLoading, isError) {
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
   };
+
+  console.log(list);
+
   if (isLoading) return <div>로딩중....</div>;
   if (isError) return <div>에러남...</div>;
+
   return (
-
     <Slider {...settings}>
-      {/* list.map((value,index)=>{
-          
-    }) */}
-      {1}
+      {list &&
+        list.map((item) => {
+          {
+            item.title;
+          }
+        })}
     </Slider>
-
   );
 }
 
