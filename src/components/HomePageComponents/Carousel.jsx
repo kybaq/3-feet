@@ -2,7 +2,6 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 
 import Slider from "react-slick";
-import CarouselItem from "./CarouselItem";
 
 // 화살표
 function SampleNextArrow(props) {
@@ -69,9 +68,12 @@ function Carousel({ list, isLoading, isError }) {
 
   return (
     <Slider {...settings}>
-      {list.map((data) => {
-        return <CarouselItem key={data.contentId} src={data.firstimage} title={data.title} />;
-      })}
+      {list &&
+        list.map((item) => {
+          {
+            item.title;
+          }
+        })}
     </Slider>
   );
 }
