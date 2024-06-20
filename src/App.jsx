@@ -1,3 +1,4 @@
+import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RouterProvider } from "react-router-dom";
 import ModalProvider from "./contexts/modal.context";
@@ -8,9 +9,11 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ModalProvider>
-        <RouterProvider router={router} />
-      </ModalProvider>
+      <ChakraProvider>
+        <ModalProvider>
+          <RouterProvider router={router} />
+        </ModalProvider>
+      </ChakraProvider>
     </QueryClientProvider>
   );
 }

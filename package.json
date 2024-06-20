@@ -10,12 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@supabase/supabase-js": "^2.43.5",
     "@tanstack/react-query": "^5.45.1",
     "@tanstack/react-query-devtools": "^5.45.1",
     "autoprefixer": "^10.4.19",
     "axios": "^1.7.2",
     "clsx": "^2.1.1",
+    "framer-motion": "^11.2.11",
     "immer": "^10.1.1",
     "postcss": "^8.4.38",
     "react": "^18.2.0",
