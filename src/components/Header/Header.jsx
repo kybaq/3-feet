@@ -1,5 +1,3 @@
-
-import myPageIcon from "./../../assets/myPageIcon.png";
 import { useNavigate } from "react-router-dom";
 import supabase from "../../apis/supabase/supabase.config";
 import useUserStore from "../../store/useUserStore";
@@ -11,6 +9,7 @@ function Header() {
   const user = useUserStore((state) => state.user);
   const navigate = useNavigate();
 
+  console.log(user);
   const logout = async () => {
     await supabase.auth.signOut();
     setUser(null);
@@ -20,9 +19,14 @@ function Header() {
       <center className="flex items-center justify-between h-[64px] w-[1080px]">
         <div onClick={() => navigate("/")} className="flex items-center mx-6">
           <img src={threeFeetLogo} alt="logo" className="h-8 w-8 mr-2" />
-          <span className="font-bold text-2xl">쓰리피트</span>
+          <span className="font-bold text-2xl cursor-pointer">쓰리피트</span>
         </div>
-        <div className="flex items-center mx-4">
+        <div className=" flex flex-1 items-start">
+          <span className="font-bold text-2xl cursor-pointer" onClick={() => navigate("/map")}>
+            맵
+          </span>
+        </div>
+        <div className="flex items-center mx-7">
           {user ? (
             <>
               <button
@@ -31,7 +35,14 @@ function Header() {
               >
                 로그아웃
               </button>
-              <img onClick={() => navigate("/mypage")} src={myPageIcon} alt="user" className="h-6 w-6" />
+              <div>
+                <img
+                  src={user.avatar_image ? user.avatar_image : myPageIcon}
+                  alt="user"
+                  className="h-6 w-6"
+                  onClick={() => navigate("/mypage")}
+                />
+              </div>
             </>
           ) : (
             <>

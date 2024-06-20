@@ -1,6 +1,6 @@
 import React, { useState, useTransition } from "react";
 import MapListItem from "./MapListItem";
-import ToggleButton from "./SideBarButton";
+// import ToggleButton from "./SideBarButton";
 import { useQuery } from "@tanstack/react-query";
 import { fetchLodgmentList, fetchRestaurantList } from "../../apis/tourism/tourism.api";
 import useCenterCoordsStore from "../../store/useCenterCoordsStore";

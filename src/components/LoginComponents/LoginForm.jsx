@@ -1,9 +1,8 @@
-import React, { useState, useCallback } from "react";
 import { useMutation } from "@tanstack/react-query";
+import React, { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import supabase from "../../apis/supabase/supabase.config";
 import InputField from "./InputField";
-import useUserStore from "../../store/useUserStore";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -11,7 +10,7 @@ function LoginForm() {
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const setUser = useUserStore((state) => state.setUser);
+  // const { setUser } = useUserStore((state) => state.setUser);
   const navigate = useNavigate();
 
   const validateEmail = useCallback((email) => {
@@ -61,8 +60,7 @@ function LoginForm() {
   const { mutate: loginMutation } = useMutation({
     mutationFn: login,
     onSuccess: (data) => {
-      setUser(data.user);
-      alert("로그인 성공");
+      alert(`${data.user.user_metadata.nickname}님 어서오세요~!}`);
       navigate("/");
     },
     onError: (error) => {
