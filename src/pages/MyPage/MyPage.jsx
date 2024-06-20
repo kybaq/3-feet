@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import supabase from "../../apis/supabase/supabase.config";
+import useUserStore from "../../store/useUserStore";
 
 function MyPage() {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ function MyPage() {
   const [ischecked, setIschecked] = useState(false);
   const [nicknameValidation, setNicknameVaildation] = useState(false);
   const [nicknameError, setNicknameError] = useState("");
+  const { setUser: setUserStore } = useUserStore();
 
   useEffect(() => {
     const getTeams = async () => {
@@ -73,6 +75,13 @@ function MyPage() {
       .from("users")
       .update({ nickname: input, avatar_image: imgPreview, club_id: selectedTeamId })
       .eq("id", user.id);
+    setUserStore({
+      id: user.id,
+      email: user.email,
+      nickname: input,
+      avatar_image: imgPreview,
+      club_id: selectedTeamId,
+    });
     alert("수정이 완료되었습니다!");
     navigate("/");
   };

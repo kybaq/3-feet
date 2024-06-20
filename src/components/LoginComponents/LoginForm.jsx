@@ -11,7 +11,7 @@ function LoginForm() {
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { setUser } = useUserStore((state) => state.setUser);
+  const setUser = useUserStore((state) => state.setUser);
   const navigate = useNavigate();
 
   const validateEmail = useCallback((email) => {
@@ -62,7 +62,7 @@ function LoginForm() {
     mutationFn: login,
     onSuccess: (data) => {
       setUser(data.user);
-      alert(`${data.user.user_metadata.nickname}님 어서오세요~!}`);
+      alert(`환영합니다~!!`);
       navigate("/");
     },
     onError: (error) => {
