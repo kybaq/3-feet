@@ -5,6 +5,7 @@ import LoginPage from "../pages/LoginPage/LoginPage";
 import Map from "../pages/Map/Map";
 import MyPage from "../pages/MyPage/MyPage";
 import SignUpPage from "../pages/SignUpPage/SingUpPage";
+import DetailPage from "./../pages/DetailPage/DetailPage";
 
 const router = createBrowserRouter([
   {
@@ -15,9 +16,10 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/login",
-        element: <LoginPage />,
+        path: "/mypage",
+        element: <MyPage />,
       },
+      { path: "/login", element: <LoginPage /> },
       {
         path: "/signup",
         element: <SignUpPage />,
@@ -27,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: "/map",
     element: <Map />,
+  },
+  {
+    path: "map/detail/:id",
+    element: <DetailPage />,
   },
   {
     path: "/mypage",
