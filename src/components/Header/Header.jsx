@@ -9,7 +9,6 @@ function Header() {
   const user = useUserStore((state) => state.user);
   const navigate = useNavigate();
 
-  console.log(user);
   const logout = async () => {
     await supabase.auth.signOut();
     setUser(null);
