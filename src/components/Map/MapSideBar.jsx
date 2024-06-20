@@ -1,6 +1,6 @@
 import React, { useState, useTransition } from "react";
 import MapListItem from "./MapListItem";
-// import ToggleButton from "./SideBarButton";
+import ToggleButton from "./MapSideBarButton";
 import { useQuery } from "@tanstack/react-query";
 import { fetchLodgmentList, fetchRestaurantList } from "../../apis/tourism/tourism.api";
 import useCenterCoordsStore from "../../store/useCenterCoordsStore";
@@ -46,13 +46,13 @@ function MapSidebar() {
   return (
     <aside
       id="list"
-      className="flex flex-col justify-center items-center h-full bg-gray-300 border border-slate-300 rounded-lg basis-1/4"
+      className="flex flex-col justify-center items-center w-2/5 h-full bg-gray-300 border border-slate-300 rounded-xl"
     >
-      <div className="flex justify-center items-center mb-8">
+      <div className="flex justify-center items-center my-6">
         <ToggleButton text="숙소 보기" onClick={() => handleToggle("lodgments")} />
         <ToggleButton text="식당 보기" onClick={() => handleToggle("restaurants")} />
       </div>
-      <ol className="space-y-8 overflow-auto">
+      <ol className="flex flex-col items-center space-y-6 overflow-y-auto w-full h-full">
         {showLodgments &&
           lodgementList &&
           lodgementList.map((lodgement) => <MapListItem key={lodgement.contentid} placeInfo={lodgement} />)}
