@@ -19,9 +19,9 @@ function Map() {
         <section className="flex w-screen h-screen justify-center items-center p-10 font-Pretendard">
           <section className="w-full h-full">
             <MapHeader />
-            <section id="Map" className="flex justify-center items-center h-[calc(100%-7rem)] gap-8">
-              <MapArea />
-              <MapSideBar />
+            <section id="Map" className="flex justify-center items-center h-[calc(100%-7rem)] gap-8 w-full">
+              <MapArea className="w-2/3" />
+              <MapSideBar className="w-1/3" />
             </section>
           </section>
         </section>

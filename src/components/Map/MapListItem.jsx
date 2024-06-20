@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import useCenterCoordsStore from "../../store/useCenterCoordsStore";
 import usePlacesCoordsStore from "../../store/usePlacesCoordsStore";
+import buliding from "../../assets/Icons/building.png";
+import pngegg from "../../assets/Icons/pngegg.png";
 
 function MapListItem({ placeInfo }) {
   const { setCenterCoords } = useCenterCoordsStore();
@@ -15,13 +17,21 @@ function MapListItem({ placeInfo }) {
   return (
     <li
       key={placeInfo.contentid}
-      className="flex border border-slate-300 bg-gray-200 rounded-lg p-6 h-24 w-80"
-      onClick={() => setCenterCoords(placeInfo.mapy, placeInfo.mapx)}
+      className="flex justify-evenly items-center flex- border border-slate-300 bg-gray-200 rounded-xl p-2 h-24 w-96"
     >
-      <div>
-        <img className="w-20" src={`${placeInfo.firstimage}`} alt="" />
+      <div className="w-24">
+        <img
+          className="object-cover h-16 rounded-xl"
+          src={`${placeInfo.firstimage}` || `${buliding}`}
+          alt="가게 사진"
+        />
       </div>
-      <span>{placeInfo.title}</span>
+      <div className="w-36">
+        <span>{placeInfo.title}</span>
+      </div>
+      <div className="w-6 cursor-pointer" onClick={() => setCenterCoords(placeInfo.mapy, placeInfo.mapx)}>
+        <img className="object-cover h-8" src={`${pngegg}`} alt="좌표 이동" />
+      </div>
     </li>
   );
 }
