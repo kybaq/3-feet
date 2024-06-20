@@ -2,7 +2,10 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        Pretendard: ["Pretendard", "sans-serif"],
+      },
     colors: {
       transparent: "transparent",
       current: "currentColor",
@@ -31,6 +34,7 @@ export default {
         700: "#1939B7",
         800: "#102693",
         900: "#091A7A",
+
       },
       red: {
         100: "#FFE5E5",
@@ -44,7 +48,5 @@ export default {
         900: "#731212",
       },
     },
-  },
-
   plugins: [],
-};
+}}}

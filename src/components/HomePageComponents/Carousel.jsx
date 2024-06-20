@@ -1,10 +1,8 @@
+import { Skeleton } from "@chakra-ui/react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-
-import magnifierPlus from "../../assets/Icons/magnifier-plus.png";
-
-import { Link } from "react-router-dom";
+import CarouselItem from "./CarouselItem";
 
 // 화살표
 function SampleNextArrow(props) {
@@ -26,13 +24,13 @@ function SamplePrevArrow(props) {
   );
 }
 
-function Carousel({ title }) {
+function Carousel({ list, isLoading, isError }) {
   const settings = {
     dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToShow: 3,
+    slidesToScroll: 3,
     initialSlide: 0,
     responsive: [
       {
@@ -63,31 +61,20 @@ function Carousel({ title }) {
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
   };
+  if (isLoading)
+    return (
+      <Skeleton>
+        <div className="h-[20vh] rounded-lg">contents wrapped</div>
+      </Skeleton>
+    );
+  if (isError) return <div>에러남...</div>;
   return (
-    <div>
-      <div className="flex justify-between items-center">
-        <h3 className="font-bold text-4xl mb-6">{title}</h3>
-        <div className="flex items-center hover:text-gray-600 hover:outline rounded-lg">
-          <Link className="font-bold mr-1">더보기</Link>
-          <img src={magnifierPlus} className="w-5 mr-2" />
-        </div>
-      </div>
-
-      <Slider {...settings}>{/* <CarouselItem src={Samsung} title={title} /> */}</Slider>
-    </div>
+    <Slider {...settings}>
+      {list.map((data) => {
+        return <CarouselItem key={data.contentId + data.createdtime} src={data.firstimage} title={data.title} />;
+      })}
+    </Slider>
   );
 }
-/* 
-<Slider 
-{...settings}>
-          {list.map((value, index) => (
-            <div>			// div로 컨텐츠 컴포넌트 감싸주기
-              <SliderContent
-                $color={value.color}
-                key={index}>
-                {value.content}
-              </SliderContent>
-            </div>
-          ))}
-        </Slider> */
+
 export default Carousel;
