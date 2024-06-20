@@ -1,5 +1,6 @@
 import React from "react";
 import ClubList from "./ClubList";
+import { Link } from "react-router-dom";
 
 function MapHeader() {
   return (
@@ -8,13 +9,10 @@ function MapHeader() {
       className="flex justify-between items-center bg-gray-300 border border-slate-300 rounded-lg w-full h-24 mb-4"
     >
       <div className="w-1/3">
-        {
-          // 조건 부 로그인
-          <button className="border border-slate-300 hover:border-indigo-300 bg-blue-700 rounded-lg ml-4 p-2 ">
-            홈
-          </button>
-        }
-      </div> 
+        <Link>
+          <button className="bg-blue-500 text-white px-4 py-2 rounded">홈</button>
+        </Link>
+      </div>
       <div className="w-2/3">
         <ClubList />
       </div>
