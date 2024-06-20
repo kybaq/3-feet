@@ -170,8 +170,10 @@ function SignUpForm() {
       >
         {isLoading ? "회원가입 중..." : "회원가입 하기"}
       </button>
-      <div className="mb-5 underline flex justify-center">
-        <Link to="/login">이미 회원이신가요? 로그인 하러 가기</Link>
+      <div className="mb-5 flex justify-center">
+        <Link to="/login">
+          이미 회원이신가요? <span className="underline">로그인 하러 가기</span>
+        </Link>
       </div>
     </form>
   );

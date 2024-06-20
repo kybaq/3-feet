@@ -5,8 +5,8 @@ function CarouselItem({ src, title }) {
       <div className="relative flex items-center justify-center bg-white  p-5  h-[200px] rounded-[10px] overflow-hidden">
         <img src={src || pngEgg} className="scale-125 " />
       </div>
-      <div className="relative w-[100%] flex justify-center">
-        <span className="font-bold absolute mt-4 w-[100%]  text-3xl truncate">{title}</span>
+      <div className="relative w-[100%]">
+        <span className="font-bold absolute mt-4 w-[100%]  text-4xl ">{title}</span>
       </div>
     </div>
   );

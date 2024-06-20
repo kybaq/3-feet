@@ -2,6 +2,7 @@ import { Skeleton } from "@chakra-ui/react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
+import { Link } from "react-router-dom";
 import CarouselItem from "./CarouselItem";
 
 // 화살표
@@ -18,7 +19,7 @@ function SamplePrevArrow(props) {
   const { className, style, onClick } = props;
 
   return (
-    <div className={`${className} `} onClick={onClick}>
+    <div className={className} onClick={onClick}>
       <div style={{ ...style, display: "flex" }} />
     </div>
   );
@@ -68,10 +69,15 @@ function Carousel({ list, isLoading, isError }) {
       </Skeleton>
     );
   if (isError) return <div>에러남...</div>;
+
   return (
     <Slider {...settings}>
       {list.map((data) => {
-        return <CarouselItem key={data.contentId + data.createdtime} src={data.firstimage} title={data.title} />;
+        return (
+          <Link to="/map">
+            <CarouselItem key={data.contentId + data.createdtime} src={data.firstimage} title={data.title} />
+          </Link>
+        );
       })}
     </Slider>
   );

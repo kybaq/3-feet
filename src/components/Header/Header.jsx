@@ -1,3 +1,5 @@
+
+import myPageIcon from "./../../assets/myPageIcon.png";
 import { useNavigate } from "react-router-dom";
 import supabase from "../../apis/supabase/supabase.config";
 import useUserStore from "../../store/useUserStore";

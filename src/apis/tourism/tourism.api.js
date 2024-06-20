@@ -1,7 +1,7 @@
 import tourismAPI from "./tourism.config";
 
 const SERVICE_KEY_DECODING = import.meta.env.VITE_TOURISM_SERVICE_KEY_DECODING;
-// const SERVICE_KEY_ENCODING = import.meta.env.VITE_TOURISM_SERVICE_KEY_ENCODING;
+const SERVICE_KEY_ENCODING = import.meta.env.VITE_TOURISM_SERVICE_KEY_ENCODING;
 
 const params = {
   MobileOS: "ETC",
@@ -29,7 +29,23 @@ export const fetchLodgmentList = async (longitude, latitude) => {
     // 반환데이터 [{,,,},{,,,},...]
     return response.data.response.body.items.item;
   } catch (error) {
-    console.error(error);
+    try {
+      const response = await tourismAPI.get(path, {
+        params: {
+          ...params,
+          mapX: longitude,
+          mapY: latitude,
+          contentTypeId: "32",
+          serviceKey: SERVICE_KEY_ENCODING,
+          arrange: "O",
+        },
+      });
+      console.log("API 호출=>fetchLodgmentList", response.data.response.body.items.item);
+      // 반환데이터 [{,,,},{,,,},...]
+      return response.data.response.body.items.item;
+    } catch (error) {
+      console.error("오류 발생 => ", error);
+    }
   }
 };
 
@@ -51,6 +67,19 @@ export const fetchRestaurantList = async (longitude, latitude) => {
     // 반환데이터 [{,,,},{,,,},...]
     return response.data.response.body.items.item;
   } catch (error) {
-    console.error(error);
+    try {
+      const response = await tourismAPI.get(path, {
+        params: {
+          ...params,
+          mapX: longitude,
+          mapY: latitude,
+          contentTypeId: "39",
+          serviceKey: SERVICE_KEY_ENCODING,
+          arrange: "O",
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 };
