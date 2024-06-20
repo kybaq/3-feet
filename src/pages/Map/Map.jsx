@@ -13,6 +13,7 @@ function Map() {
       다양한 컴포넌트가 비동기 로직을 사용하고 있어서 로딩이 안될 시 오류가 발생합니다.
         따라서 컴포넌트가 정상적으로 렌더링이 되기 위해 데이터가 필요한 상황에,
         데이터가 없다면 다른 컴포넌트를 먼저 렌더링 하도록 지도와 관련한 모든 요소들을 Suspense 로 감싸주었습니다!
+        Suspense 에 fallback 을 통해 컴포넌트를 넘겨주면 로딩 중에 대신 보여줄 컴포넌트를 설정할 수 있습니다!
       */}
       <Suspense>
         <section className="flex w-screen h-screen justify-center items-center p-10 font-Pretendard">
