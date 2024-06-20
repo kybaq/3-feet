@@ -6,14 +6,14 @@ function MapHeader() {
   return (
     <header
       id="header"
-      className="flex justify-between items-center bg-gray-300 border border-slate-300 rounded-lg w-full h-24 mb-4"
+      className="flex justify-between items-center w-full h-24 mb-4 bg-gray-300 border border-slate-300 rounded-xl"
     >
-      <div className="w-1/3">
+      <div className="w-1/12">
         <Link>
-          <button className="bg-blue-500 text-white px-4 py-2 rounded">홈</button>
+          <button className="bg-blue-500 text-white ml-4 px-4 py-2 rounded-xl">홈</button>
         </Link>
       </div>
-      <div className="w-2/3">
+      <div className="w-11/12">
         <ClubList />
       </div>
     </header>
