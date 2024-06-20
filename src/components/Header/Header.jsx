@@ -1,8 +1,16 @@
 import React from "react";
 import threeFeetLogo from "./../../assets/threeFeetLogo.png";
 import myPageIcon from "./../../assets/myPageIcon.png";
+import useUserStore from "../../store/useUserStore";
+import supabase from "../../apis/supabase/supabase.config";
 
 function Header() {
+  const setUser = useUserStore((state) => state.setUser);
+  const user = useUserStore((state) => state.user);
+  const logout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+  };
   return (
     <header className="bg-blue-200 flex items-center justify-center h-[64px] w-[1920px]">
       <center className="flex items-center justify-between h-[64px] w-[1320px]">
@@ -11,10 +19,20 @@ function Header() {
           <span className="font-bold text-2xl">쓰리피트</span>
         </div>
         <div className="flex items-center">
-          <button className="bg-blue-700 text-white px-4 py-1 rounded-[10px] mr-4 hover:bg-blue-900 transition duration-200">
-            로그인
-          </button>
-          <img src={myPageIcon} alt="user" className="h-6 w-6" />
+          {user ? (
+            <>
+              <div>{user.email}</div>
+              <button onClick={logout}>로그아웃</button>
+            </>
+          ) : (
+            <>
+              {/* TODO: 로그인 버튼 누르면 로그인 페이지로 이동 ex) useNavigate */}
+              <button className="bg-blue-700 text-white px-4 py-1 rounded-[10px] mr-4 hover:bg-blue-900 transition duration-200">
+                로그인
+              </button>
+              <img src={myPageIcon} alt="user" className="h-6 w-6" />
+            </>
+          )}
         </div>
       </center>
     </header>
