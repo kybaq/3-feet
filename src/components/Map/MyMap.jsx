@@ -1,29 +1,23 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Container as MapDiv, NaverMap, Marker, useNavermaps } from "react-naver-maps";
+import React, { useEffect, useRef } from "react";
+import { NaverMap, Marker, useNavermaps } from "react-naver-maps";
 import { useQuery } from "@tanstack/react-query";
 import { fetchClubById } from "../../apis/supabase/supabase.api";
 import useSelectedClubStore from "../../store/useSelectedClubStore";
+import useCenterCoordsStore from "../../store/useCenterCoordsStore";
+import { DEFAULT_ZOOM } from "../../constants/constants";
+import usePlacesCoordsStore from "../../store/usePlacesCoordsStore";
 
-function MyMap({ lat, lng }) {
+function MyMap() {
+  // NOTE: 공식 문서 상에서는 지도 DOM 요소 선택 시 useState 를 ref 로서 사용
+  // NOTE: 그러나, useState vs useRef 직접 사용한 결과, state 를 ref 로 사용할 시 무한 렌더링 오류 발생해 useRef 사용.
   const naverMaps = useNavermaps();
-  // NOTE: 직접 사용한 결과, setMap 을 ref 로 사용하거나 useRef 를 사용하거나 동작은 문제 없어 보임.
-  // 하지만, 공식 문서의 방법을 따르기로 함.
-  const [map, setMap] = useState(null);
-  // const mapRef = useRef(null);
-
-  const defaultLatitude = 37.3995704;
-  const defaultLongitude = 127.105399;
-
-  const defaultZoom = 10;
-
-  const selectedClubId = useSelectedClubStore((state) => state.selectedClub);
+  const mapRef = useRef(null);
 
   // NOTE: state 로 관리해서 외부 값을 받아 처리하도록 함.
-  const [centerCoords, setCenterCoords] = useState(
-    new naverMaps.LatLng(lat || defaultLatitude, lng || defaultLongitude),
-  );
-
   // TODO: 기본 값은 유저 관심 구단으로 추후 교체 필요함.
+  const { selectedClubId } = useSelectedClubStore();
+  const { centerCoords, setCenterCoords } = useCenterCoordsStore();
+  const { placesCoords } = usePlacesCoordsStore();
 
   const { data: selectedClubInfo } = useQuery({
     queryKey: ["clubInfo", selectedClubId],
@@ -33,25 +27,26 @@ function MyMap({ lat, lng }) {
 
   useEffect(() => {
     if (selectedClubInfo) {
-      // const latitude = lat || selectedClubInfo.latitude;
-      // const longitude = lng || selectedClubInfo.longitude;
       const nextCoords = new naverMaps.LatLng(selectedClubInfo.latitude, selectedClubInfo.longitude);
       setCenterCoords(nextCoords);
+      console.log(placesCoords[0].latitude, placesCoords[0].longitude);
     }
   }, [selectedClubInfo]);
 
   useEffect(() => {
-    if (map && centerCoords) {
-      map.panTo(centerCoords);
+    if (mapRef.current && centerCoords) {
+      mapRef.current.panTo(centerCoords);
     }
-  }, [map, centerCoords]);
+  }, [mapRef.current, centerCoords]);
 
   return (
-    <NaverMap defaultCenter={centerCoords} defaultZoom={defaultZoom} ref={setMap} minZoom={defaultZoom}>
-      <Marker defaultPosition={centerCoords} />
-      {/* NOTE: 추후 list 를 받아 표현 */}
-      {/* NOTE: 반경 10km 까지 */}
-      {/* <Marker defaultPosition={new naverMaps.LatLng(37.3595704, 127.105399)} /> */}
+    <NaverMap defaultCenter={centerCoords} defaultZoom={DEFAULT_ZOOM} ref={mapRef} minZoom={DEFAULT_ZOOM}>
+      <Marker position={centerCoords} />
+      {placesCoords &&
+        placesCoords.map((placesCoord, index) => {
+          return <Marker key={index} position={new naverMaps.LatLng(placesCoord.latitude, placesCoord.longitude)} />;
+        })}
+      {/* marker 클릭 시 zoom 하는 효과? */}
       {/* TODO: panning 해도 화면에 보이는 영역만 marker 하기 */}
     </NaverMap>
   );

@@ -1,7 +1,7 @@
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-
 import Slider from "react-slick";
+import { Link } from "react-router-dom";
 
 // 화살표
 function SampleNextArrow(props) {
@@ -69,10 +69,12 @@ function Carousel({ list, isLoading, isError }) {
   return (
     <Slider {...settings}>
       {list &&
-        list.map((item) => {
-          {
-            item.title;
-          }
+        list.map((data) => {
+          return (
+            <Link to="/map" state={{ data: data }} key={data.dist}>
+              <div>{data.title} </div>;
+            </Link>
+          );
         })}
     </Slider>
   );
