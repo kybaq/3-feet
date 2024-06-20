@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import supabase from "../../apis/supabase/supabase.config";
-
+import { useNavigate } from "react-router-dom";
 
 function MyPage() {
+  const navigate = useNavigate();
   const [teams, setTeams] = useState([]);
   const [user, setUser] = useState(null);
   const [selectedTeamId, setSelectedTeamId] = useState(null);
@@ -10,10 +11,8 @@ function MyPage() {
   const [logo, setLogo] = useState(null);
   const [input, setInput] = useState("");
   const [ischecked, setIschecked] = useState(false);
-
-  // 이미지 파일 미리보기
-  // 이미지 파일을 저장하는 state
-  // 이미지 주소를 저장하는 state
+  const [nicknameValidation, setNicknameVaildation] = useState(false);
+  const [nicknameError, setNicknameError] = useState("");
 
   useEffect(() => {
     const getTeams = async () => {
@@ -27,9 +26,11 @@ function MyPage() {
     setIschecked(true);
     const { data } = await supabase.from("users").select("nickname").eq("nickname", input);
     if (data.length === 1) {
-      alert("중복된 아이디 입니다");
+      setNicknameError("중복된 닉네임 입니다");
+      setNicknameVaildation(false);
     } else {
-      alert("사용 가능한 아이디 입니다");
+      setNicknameError("사용 가능한 닉네임 입니다");
+      setNicknameVaildation(true);
     }
   };
   // getNickname();
@@ -64,7 +65,10 @@ function MyPage() {
   }, []);
 
   const onClickHandle = async () => {
-    if (input !== user.nickname && !ischecked) {
+    if (input.length < 2 || input.length > 5) {
+      return alert("닉네임은 2글자 이상 5글자 이하로 입력해주세요.");
+    }
+    if (input !== user.nickname && (!ischecked || !nicknameValidation)) {
       return alert("중복 확인 버튼을 눌러주세요!");
     }
     await supabase
@@ -73,33 +77,26 @@ function MyPage() {
       .eq("id", "7d1de00f-2328-43f3-81a3-b32037744a23")
       .select();
     alert("수정이 완료되었습니다!");
+    navigate("/");
   };
 
   const onChangeFile = async (e) => {
     const avatarFile = e.target.files[0];
-    console.log(avatarFile.name);
     const { error } = await supabase.storage
       .from("avatars")
       .upload(`${user.id}/${avatarFile.name}`, avatarFile, { upsert: true });
     console.log(error);
     const { data: data2 } = supabase.storage.from("avatars").getPublicUrl(`${user.id}/${avatarFile.name}`);
-    console.log(data2);
     setImgPreview(data2.publicUrl);
-  };
-
-  const removeUser = async () => {
-    // const { error } = await supabase.from("users").delete().eq("nickname", "민석");
-    // console.log(error);
-    // const { data, error } = await supabase.auth.admin.deleteUser("7d1de00f-2328-43f3-81a3-b32037744a23");
   };
 
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="rounded flex justify-center items-center flex-row gap-[150px] border border-primary-blue w-[800px] h-[450px]">
         <div>
-          <div className="relative scale-150">
+          <div className="relative scale-140">
             <img
-              src={imgPreview ? imgPreview : "src/assets/user.png"}
+              src={imgPreview ? imgPreview : "src/assets/icons/user.png"}
               className="w-[140px] h-[140px] rounded-[50%] object-cover"
             />
             <label>
@@ -110,15 +107,15 @@ function MyPage() {
             </label>
           </div>
           {/* TODO: 로그인, 회원가입 끝나면 이거 수정 */}
-          <div className="text-center mt-10 ">sparta@gmail.com</div>
+          <div className="text-center mt-10">sparta@gmail.com</div>
         </div>
         <div>
-          <div>관심있는 구단</div>
+          <div className="mb-2">관심있는 구단</div>
           <div className="flex flex-row items-center">
             {logo ? (
-              <img src={logo.logo_url} className="w-[100px] h-[100px] mt-3" />
+              <img src={logo.logo_url} className=" w-[150px] h-[110px] mt-3" />
             ) : (
-              <div className="w-[100px] h-[100px] bg-black-100 rounded-full"></div>
+              <div className="w-[130px] h-[130px] bg-black-100 rounded-full"></div>
             )}
             <select
               className="ml-3 h-7 px-1 border border-black-300 rounded"
@@ -135,29 +132,29 @@ function MyPage() {
               ))}
             </select>
           </div>
-
-          <div className=" relative mt-5">
-            <div className="ml-[7px]">현재 닉네임</div>
-            <input
-              maxLength={5}
-              className="px-[10px] py-1 w-full border rounded border-black-300 placeholder:text-black-default"
-              placeholder={user?.nickname}
-              value={input}
-              onChange={(e) => {
-                setInput(e.target.value);
-              }}
-            />
-            <button className="absolute top-1/2 right-[10px] hover:to-blue-200" onClick={getNickname}>
-              중복확인
-            </button>
+          <div className="mt-5">
+            <div className="ml-[7px] mb-2">닉네임 변경</div>
+            <div className="relative">
+              <input
+                className="px-[10px] py-1 w-full border rounded border-black-300 placeholder:text-black-default "
+                value={input ? input : ""}
+                onChange={(e) => {
+                  setInput(e.target.value);
+                }}
+              />
+              <button className="absolute bottom-[6px] right-[10px] hover:to-blue-200" onClick={getNickname}>
+                중복확인
+              </button>
+            </div>
+            <div className="text-red-500 mt-1">{nicknameError}</div>
           </div>
           <div className="flex flex-col gap-2 mt-4">
             <button onClick={onClickHandle} className="bg-primary-blue text-white py-1 rounded-lg">
               수정
             </button>
-            <button className="bg-[#A5020C] text-white py-1 rounded-lg" onClick={removeUser}>
+            {/* <button className="bg-red-500 text-white py-1 rounded-lg" onClick={removeUser}>
               탈퇴
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
