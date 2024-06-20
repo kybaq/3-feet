@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import supabase from "../../apis/supabase/supabase.config";
 import InputField from "./InputField";
 import useUserStore from "../../store/useUserStore";
@@ -12,6 +12,7 @@ function LoginForm() {
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const setUser = useUserStore((state) => state.setUser);
+  const navigate = useNavigate();
 
   const validateEmail = useCallback((email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -60,6 +61,7 @@ function LoginForm() {
     onSuccess: (data) => {
       setUser(data.user);
       alert("로그인 성공");
+      navigate("/");
     },
     onError: (error) => {
       if (error.message !== "유효성 검사 실패") {
