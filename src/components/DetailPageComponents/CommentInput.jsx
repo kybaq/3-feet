@@ -1,23 +1,29 @@
 import clsx from "clsx";
 import { useState } from "react";
 
-function CommentInput() {
-  const [text, setText] = useState("");
+function CommentInput({ setComments }) {
+  const [comment, setComment] = useState("");
 
   const handleChange = (event) => {
     const { value } = event.target;
     if (value.length <= 200) {
-      setText(value);
+      setComment(value);
       event.target.style.height = "auto";
       event.target.style.height = `${event.target.scrollHeight}px`;
     }
   };
 
-  const isDisabled = text.trim() === "";
+  const isDisabled = comment.trim() === "";
 
   const handleClick = () => {
     if (!isDisabled) {
-      alert(text);
+      const newComment = {
+        id: Date.now(),
+        nickname: "user_name",
+        text: comment,
+      };
+      setComments((prev) => [newComment, ...prev]);
+      setComment("");
     }
   };
 
@@ -26,16 +32,16 @@ function CommentInput() {
       <textarea
         className="flex-1 px-3 py-3 text-sm outline-none overflow-hidden resize-none hover:text-black-500"
         rows="1"
-        maxLength="150"
-        value={text}
+        maxLength="200"
+        value={comment}
         onChange={handleChange}
-        placeholder="방문 기록을 남겨주세요(0/150)"
+        placeholder="방문 기록을 남겨주세요(0/200)"
       />
       <div className="flex items-center h-full px-4 border-l border-l-black-300">
         <div
-          className={clsx("text-blue-500 text-sm font-semibold hover:text-black-500 hover:font-semibold", {
+          className={clsx("text-blue-500 text-sm font-semibold", {
             "opacity-50 cursor-not-allowed": isDisabled,
-            "cursor-pointer": !isDisabled,
+            "cursor-pointer hover:text-black-500 hover:font-semibold": !isDisabled,
           })}
           onClick={handleClick}
         >

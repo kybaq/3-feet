@@ -7,7 +7,6 @@ function ClubButtons() {
   useEffect(() => {
     const getClubs = async () => {
       const data = await fetchClubs();
-      console.log("구단 정보 : ", data);
       setClubs(data);
     };
     getClubs();

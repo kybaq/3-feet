@@ -9,7 +9,6 @@ function BigModal({ children }) {
     modal.close();
     window.history.back();
     // navigate(-1);
-    // onClick();
   };
 
   const handleBackgroundClick = (e) => {
