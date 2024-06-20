@@ -10,10 +10,22 @@ function ClubList() {
     setIsOpen(!isOpen);
   };
 
-  const { data: clubs } = useQuery({
+  const {
+    data: clubs,
+    isPending,
+    isError,
+  } = useQuery({
     queryKey: ["clubs"],
     queryFn: fetchClubs,
   });
+
+  if (isPending) {
+    return <div>로딩 중..</div>;
+  }
+
+  if (isError) {
+    return <div>오류 발생</div>;
+  }
 
   return (
     <div className="w-full p-4 flex items-center justify-end">

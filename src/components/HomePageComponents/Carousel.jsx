@@ -74,8 +74,8 @@ function Carousel({ list, isLoading, isError }) {
     <Slider {...settings}>
       {list.map((data) => {
         return (
-          <Link to="/amp">
-            <CarouselItem key={data.contentId + data.createdtime} src={data.firstimage} title={data.title} />;
+          <Link to="/map">
+            <CarouselItem key={data.contentId + data.createdtime} src={data.firstimage} title={data.title} />
           </Link>
         );
       })}

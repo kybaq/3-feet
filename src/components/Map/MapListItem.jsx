@@ -16,9 +16,7 @@ function MapListItem({ placeInfo }) {
     <li
       key={placeInfo.contentid}
       className="flex border border-slate-300 bg-gray-200 rounded-lg p-6 h-24 w-80"
-      onClick={() => {
-        setCenterCoords(placeInfo.mapy, placeInfo.mapx);
-      }}
+      onClick={() => setCenterCoords(placeInfo.mapy, placeInfo.mapx)}
     >
       <div>
         <img className="w-20" src={`${placeInfo.firstimage}`} alt="" />

@@ -3,12 +3,9 @@ import Magnifier from "../../assets/Icons/magnifier-plus.png";
 import { useLodgmentList, useRestaurantList } from "../../hooks/useTourismQuery";
 import Carousel from "./Carousel";
 function ShowDataForm({ longitude, latitude }) {
-  const { data: restaurantList, isPending: isPending1, isError: isError1 } = useRestaurantList(longitude, latitude);
-  const { data: lodgmentList, isPending: isPending2, isError: isError2 } = useLodgmentList(longitude, latitude);
+  const { data: restaurantList, isLoading: isLoading1, isError: isError1 } = useRestaurantList(longitude, latitude);
+  const { data: lodgmentList, isLoading: isLoading2, isError: isError2 } = useLodgmentList(longitude, latitude);
 
-  // console.log(restaurantList, lodgmentList);
-  // console.log(isPending1, isPending2);
-  // console.log(isError1, isError2);
   return (
     <div className="flex flex-col">
       <div className="h-[auto] mb-10">

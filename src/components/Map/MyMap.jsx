@@ -19,7 +19,11 @@ function MyMap() {
   const { centerCoords, setCenterCoords } = useCenterCoordsStore();
   const { placesCoords } = usePlacesCoordsStore();
 
-  const { data: selectedClubInfo } = useQuery({
+  const {
+    data: selectedClubInfo,
+    isPending,
+    isError,
+  } = useQuery({
     queryKey: ["clubInfo", selectedClubId],
     queryFn: () => fetchClubById(selectedClubId),
     enabled: !!selectedClubId,
@@ -29,7 +33,6 @@ function MyMap() {
     if (selectedClubInfo) {
       const nextCoords = new naverMaps.LatLng(selectedClubInfo.latitude, selectedClubInfo.longitude);
       setCenterCoords(nextCoords);
-      console.log(placesCoords[0].latitude, placesCoords[0].longitude);
     }
   }, [selectedClubInfo]);
 
@@ -38,6 +41,14 @@ function MyMap() {
       mapRef.current.panTo(centerCoords);
     }
   }, [mapRef.current, centerCoords]);
+
+  if (isPending) {
+    return <div>로딩 중..</div>;
+  }
+
+  if (isError) {
+    return <div>오류 발생</div>;
+  }
 
   return (
     <NaverMap defaultCenter={centerCoords} defaultZoom={DEFAULT_ZOOM} ref={mapRef} minZoom={DEFAULT_ZOOM}>
