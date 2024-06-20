@@ -2,7 +2,7 @@ import React from "react";
 import useSelectedClubStore from "../../store/useSelectedClubStore";
 
 function ClubListItem({ clubs }) {
-  const setSelectedClubId = useSelectedClubStore((state) => state.setSelectedClubId);
+  const { setSelectedClubId } = useSelectedClubStore();
 
   return (
     <>
@@ -11,11 +11,11 @@ function ClubListItem({ clubs }) {
           return (
             <div
               key={club.id}
-              className="flex w-full justify-center items-center list-none px-4 hover:bg-black-300 hover:bg-opacity-40
-    focus:ring focus:ring-blue-600 "
+              className="flex justify-center items-center list-none w-16 h-16 mx-8 hover:bg-black-300 hover:bg-opacity-40
+    focus:ring focus:ring-blue-600 rounded-xl"
             >
               <button onClick={() => setSelectedClubId(club.id)}>
-                <img className="object-fill min-h-8 min-w-10 my-1" src={`${club.logo_url}`} alt="" />
+                <img className="object-fill min-h-4 min-w-6 max-h-12 max-w-16" src={`${club.logo_url}`} alt="" />
               </button>
             </div>
           );
