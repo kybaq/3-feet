@@ -1,7 +1,12 @@
 import clsx from "clsx";
 import { useState } from "react";
+import commentsApi from "../../apis/supabase/comments.api";
 
-function CommentInput({ setComments }) {
+const user_id = "4ea63f82-0fc6-4302-ac5f-360db2c45432";
+const isLogIn = false;
+
+function CommentInput({ store_id }) {
+  const { createComment } = commentsApi();
   const [comment, setComment] = useState("");
 
   const handleChange = (event) => {
@@ -18,11 +23,12 @@ function CommentInput({ setComments }) {
   const handleClick = () => {
     if (!isDisabled) {
       const newComment = {
-        id: Date.now(),
+        user_id: user_id,
         nickname: "user_name",
-        text: comment,
+        comment,
+        store_id,
       };
-      setComments((prev) => [newComment, ...prev]);
+      createComment(newComment);
       setComment("");
     }
   };
@@ -35,7 +41,8 @@ function CommentInput({ setComments }) {
         maxLength="200"
         value={comment}
         onChange={handleChange}
-        placeholder="방문 기록을 남겨주세요(0/200)"
+        placeholder={isLogIn ? "방문 기록을 남겨주세요(0/200)" : "로그인이 필요합니다"}
+        disabled={!isLogIn}
       />
       <div className="flex items-center h-full px-4 border-l border-l-black-300">
         <div

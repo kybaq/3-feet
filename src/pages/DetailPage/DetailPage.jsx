@@ -1,55 +1,32 @@
-import { useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import Comment from "../../components/DetailPageComponents/Comment";
 import CommentInput from "../../components/DetailPageComponents/CommentInput";
 import ShopProfile from "../../components/DetailPageComponents/ShopProfile";
+import commentApi from "./../../apis/supabase/comments.api";
 import BigModal from "./../../components/commons/BigModal";
 
-function DetailPage({ images }) {
-  const [comments, setComments] = useState([
-    {
-      id: 1,
-      nickname: "user_name",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis commodo eros, quis consectetur quam venenatis sit amet. Etiam scelerisque",
-    },
-    {
-      id: 2,
-      nickname: "user_name",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis commodo eros, quis consectetur quam venenatis sit amet. Etiam scelerisque",
-    },
-    {
-      id: 3,
-      nickname: "user_name",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis commodo eros, quis consectetur quam venenatis sit amet. Etiam scelerisque",
-    },
-    {
-      id: 4,
-      nickname: "user_name",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis commodo eros, quis consectetur quam venenatis sit amet. Etiam scelerisque",
-    },
-    {
-      id: 5,
-      nickname: "user_name",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis commodo eros, quis consectetur quam venenatis sit amet. Etiam scelerisque",
-    },
-    {
-      id: 6,
-      nickname: "user_name",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis commodo eros, quis consectetur quam venenatis sit amet. Etiam scelerisque",
-    },
-    {
-      id: 7,
-      nickname: "user_name",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis commodo eros, quis consectetur quam venenatis sit amet. Etiam scelerisque",
-    },
-    {
-      id: 8,
-      nickname: "user_name",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis commodo eros, quis consectetur quam venenatis sit amet. Etiam scelerisque",
-    },
-  ]);
+const store_id = 1;
+
+const DetailPage = forwardRef(function DetailPage({ images, onClose }, ref) {
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    const fetchCommentData = async () => {
+      try {
+        const commentsData = await commentApi().getComments(store_id);
+        setComments(commentsData || []);
+      } catch (error) {
+        console.error("댓글을 가져오는 도중 에러가 발생했습니다.", error);
+      }
+    };
+
+    fetchCommentData();
+  }, []);
+
+  console.log(comments);
 
   return (
-    <BigModal>
+    <BigModal ref={ref} onClose={onClose}>
       <div className="flex w-full h-full">
         <div className="w-2/3 bg-black-200">
           <img src={images} alt="img" className="w-full h-full object-fill" />
@@ -67,22 +44,22 @@ function DetailPage({ images }) {
               <p>댓글</p>
               {comments.map((comment) => (
                 <Comment
-                  key={comment.id}
+                  key={comment.comment_id}
                   profileImage={images}
                   username={comment.nickname}
-                  commentText={comment.text}
+                  commentText={comment.comment}
                 />
               ))}
             </div>
           </div>
 
           <section className="flex-none border-t border-t-black-300">
-            <CommentInput setComments={setComments} />
+            <CommentInput store_id={store_id} />
           </section>
         </div>
       </div>
     </BigModal>
   );
-}
+});
 
 export default DetailPage;

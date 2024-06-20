@@ -1,24 +1,43 @@
+import { useCallback, useEffect, useRef } from "react";
 import { NavermapsProvider } from "react-naver-maps";
-import { useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import "../../App";
 import sampleImg2 from "../../assets/Img/sampleImg.jpg";
 import MapArea from "../../components/Map/MapArea";
 import MapHeader from "../../components/Map/MapHeader";
 import MapSideBar from "../../components/Map/MapSideBar";
-import { useModal } from "../../contexts/modal.context";
+import { useClickOutside, useModal } from "../../contexts/modal.context";
 import DetailPage from "../DetailPage/DetailPage";
 
 function Map() {
   const CLIENT_ID = import.meta.env.VITE_APP_NAVER_MAP_ID;
   const modal = useModal();
-  const navigate = useNavigate();
+  const modalRef = useRef(null);
 
-  const id = 123;
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleOpenModal = () => {
-    navigate(`detail/${id}`);
-    modal.open(<DetailPage images={sampleImg2} />);
+    setSearchParams({
+      id: 123,
+    });
   };
+
+  const onClose = useCallback(() => {
+    setSearchParams({});
+  }, [setSearchParams]);
+
+  useClickOutside(modalRef, () => {
+    onClose();
+  });
+
+  useEffect(() => {
+    const modalId = searchParams.get("id");
+    if (modalId && !modal.isOpen) {
+      modal.open(<DetailPage ref={modalRef} images={sampleImg2} onClose={onClose} />);
+    } else if (!modalId && modal.isOpen) {
+      modal.close();
+    }
+  }, [searchParams, modal, onClose]);
 
   return (
     <section className="flex w-screen h-screen justify-center items-center p-10 font-Pretendard">
