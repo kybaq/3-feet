@@ -1,7 +1,9 @@
+import { Skeleton } from "@chakra-ui/react";
+import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-import Slider from "react-slick";
 import { Link } from "react-router-dom";
+import CarouselItem from "./CarouselItem";
 
 // 화살표
 function SampleNextArrow(props) {
@@ -28,8 +30,8 @@ function Carousel({ list, isLoading, isError }) {
     dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToShow: 3,
+    slidesToScroll: 3,
     initialSlide: 0,
     responsive: [
       {
@@ -60,22 +62,23 @@ function Carousel({ list, isLoading, isError }) {
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
   };
-
-  console.log(list);
-
-  if (isLoading) return <div>로딩중....</div>;
+  if (isLoading)
+    return (
+      <Skeleton>
+        <div className="h-[20vh] rounded-lg">contents wrapped</div>
+      </Skeleton>
+    );
   if (isError) return <div>에러남...</div>;
 
   return (
     <Slider {...settings}>
-      {list &&
-        list.map((data) => {
-          return (
-            <Link to="/map" state={{ data: data }} key={data.dist}>
-              <div>{data.title} </div>;
-            </Link>
-          );
-        })}
+      {list.map((data) => {
+        return (
+          <Link to="/amp">
+            <CarouselItem key={data.contentId + data.createdtime} src={data.firstimage} title={data.title} />;
+          </Link>
+        );
+      })}
     </Slider>
   );
 }
