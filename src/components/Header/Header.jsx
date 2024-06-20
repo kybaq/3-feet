@@ -1,6 +1,6 @@
+
 import myPageIcon from "./../../assets/myPageIcon.png";
 import threeFeetLogo from "./../../assets/threeFeetLogo.png";
-
 function Header() {
   return (
     <header className="bg-blue-200 flex items-center justify-center h-[64px] w-full right-0">
