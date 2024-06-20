@@ -14,7 +14,7 @@ function MapHeader() {
             홈
           </button>
         }
-      </div>
+      </div> 
       <div className="w-2/3">
         <ClubList />
       </div>

@@ -20,18 +20,17 @@ function ClubList() {
   });
 
   if (isPending) {
-    // 구단 이미지 가져오는 동안 애니메이션
-    return <div>로딩 중...</div>;
+    return <div>로딩 중..</div>;
   }
 
   if (isError) {
-    return <div> 오류 발생 </div>;
+    return <div>오류 발생</div>;
   }
 
   return (
     <div className="w-full p-4 flex items-center justify-end">
       <div
-        className={`overflow-hidden bg-white shadow-lg rounded transition-all duration-300 ease ${
+        className={`overflow-auto bg-white shadow-lg rounded transition-all duration-300 ease ${
           isOpen ? "w-full" : "w-0"
         }`}
       >
