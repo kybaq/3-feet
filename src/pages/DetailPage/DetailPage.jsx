@@ -23,8 +23,6 @@ const DetailPage = forwardRef(function DetailPage({ images, onClose }, ref) {
     fetchCommentData();
   }, []);
 
-  console.log(comments);
-
   return (
     <BigModal ref={ref} onClose={onClose}>
       <div className="flex w-full h-full">
