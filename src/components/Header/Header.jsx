@@ -1,9 +1,9 @@
+
 import myPageIcon from "./../../assets/myPageIcon.png";
 import useUserStore from "../../store/useUserStore";
 import supabase from "../../apis/supabase/supabase.config";
 import { useNavigate } from "react-router-dom";
 import threeFeetLogo from "./../../assets/threeFeetLogo.png";
-
 
 function Header() {
   const setUser = useUserStore((state) => state.setUser);
