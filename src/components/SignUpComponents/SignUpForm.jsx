@@ -1,9 +1,10 @@
-import React, { useState, useCallback } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { useCallback, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { InsertUser } from "../../apis/supabase/supabase.api";
 import supabase from "../../apis/supabase/supabase.config";
-import InputField from "./InputField";
 import DuplicateCheckButton from "./DuplicateCheckButton";
+import InputField from "./InputField";
 
 function SignUpForm() {
   const [email, setEmail] = useState("");
@@ -14,6 +15,7 @@ function SignUpForm() {
   const [nicknameErrorMessage, setNicknameErrorMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const validateEmail = useCallback((email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -64,8 +66,12 @@ function SignUpForm() {
       },
     });
 
+    // public_user 테이블에 값 넣기
+    InsertUser(data);
+
     if (signUpError) throw new Error(signUpError.message);
     // TODO: 회원가입 성공시 자동으로 로그인 페이지로 이동 hint: useNavigate
+    navigate("/login");
     return data.user;
   };
 
