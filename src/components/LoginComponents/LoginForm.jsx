@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import supabase from "../../apis/supabase/supabase.config";
 import InputField from "./InputField";
 import useUserStore from "../../store/useUserStore";
@@ -53,6 +53,8 @@ function LoginForm() {
         throw new Error(error.message);
       }
     }
+    localStorage.setItem("user", JSON.stringify(data.user));
+
     return data;
   };
 

@@ -1,4 +1,3 @@
-
 import myPageIcon from "./../../assets/myPageIcon.png";
 import useUserStore from "../../store/useUserStore";
 import supabase from "../../apis/supabase/supabase.config";
@@ -31,6 +30,7 @@ function Header() {
               >
                 로그아웃
               </button>
+              <img onClick={() => navigate("/mypage")} src={myPageIcon} alt="user" className="h-6 w-6" />
             </>
           ) : (
             <>
