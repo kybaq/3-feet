@@ -12,6 +12,7 @@ function Header() {
   const logout = async () => {
     await supabase.auth.signOut();
     setUser(null);
+    navigate("/");
   };
   return (
     <header className="bg-blue-200 flex items-center justify-center h-[64px] w-[full]">
@@ -38,7 +39,7 @@ function Header() {
                 <img
                   src={user.avatar_image ? user.avatar_image : myPageIcon}
                   alt="user"
-                  className="h-6 w-6"
+                  className="h-10 w-10 rounded-full"
                   onClick={() => navigate("/mypage")}
                 />
               </div>
