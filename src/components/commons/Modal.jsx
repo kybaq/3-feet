@@ -11,7 +11,7 @@ function Modal({ children, onConfirm }) {
     >
       <div className="flex flex-col justify-center items-center max-w-96 w-full rounded-lg p-10 gap-y-4 bg-white">
         {children}
-        <div className=" flex justify-end gap-x-2 ">
+        <div className="flex justify-end gap-x-2">
           <button
             className="bg-blue-400 rounded-lg text-white font-semibold px-6 py-1 mt-2 hover:bg-blue-500"
             onClick={() => {

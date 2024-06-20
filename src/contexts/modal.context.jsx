@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 const initialValue = {
   open: () => {},
   close: () => {},
-  isOpen: false,
+  isOpen: 0,
 };
 
 const ModalContext = createContext(initialValue);
@@ -32,7 +32,7 @@ export default function ModalProvider({ children }) {
 
   // 스크롤 방지 기능
   useEffect(() => {
-    if (modalElementStack) {
+    if (modalElementStack.length > 0) {
       document.documentElement.style.overflow = "hidden";
     } else {
       document.documentElement.style.overflow = "";
