@@ -22,7 +22,7 @@ function HomePage() {
   }, [selectedClubId]);
 
   return (
-    <div className="flex flex-col gap-y-10 w-[1320px] mx-auto sm:max-w-full sm:px-6 mt-4 ">
+    <div className="flex flex-col gap-y-10 w-[1080px] mx-auto sm:max-w-full sm:px-6 mt-4 ">
       <div className="bg-gray-400 bg-opacity-25 rounded-[10px] w-auto h-[404px]">
         <ClubButtons />
       </div>
