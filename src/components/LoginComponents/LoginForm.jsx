@@ -62,7 +62,6 @@ function LoginForm() {
     mutationFn: login,
     onSuccess: async (data) => {
       const { data: userData } = await supabase.from("users").select().eq("id", data.user.id).single();
-      console.log(userData);
       setUser(userData);
       alert("로그인 성공");
       const queryParams = new URLSearchParams(location.search);

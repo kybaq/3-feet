@@ -58,8 +58,8 @@ function CommentInput({ fetchComments }) {
   const handlePostComment = async () => {
     if (!isCommentBlank && isLogIn) {
       const newComment = {
-        user_id: user.user.user_metadata.sub,
-        nickname: user.user.user_metadata.nickname,
+        user_id: user.user.id,
+        nickname: user.user.nickname,
         comment,
         store_id: storeInfo.contentId,
       };
