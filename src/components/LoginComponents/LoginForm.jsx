@@ -60,8 +60,10 @@ function LoginForm() {
 
   const { mutate: loginMutation } = useMutation({
     mutationFn: login,
-    onSuccess: (data) => {
-      setUser(data.user);
+    onSuccess: async (data) => {
+      const { data: userData } = await supabase.from("users").select().eq("id", data.user.id).single();
+      console.log(userData);
+      setUser(userData);
       alert("로그인 성공");
       const queryParams = new URLSearchParams(location.search);
       const redirectUrl = queryParams.get("redirect");
