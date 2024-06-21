@@ -1,9 +1,9 @@
-import React, { useState, useCallback } from "react";
 import { useMutation } from "@tanstack/react-query";
+import React, { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import supabase from "../../apis/supabase/supabase.config";
-import InputField from "./InputField";
 import useUserStore from "../../store/useUserStore";
+import InputField from "./InputField";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -62,7 +62,7 @@ function LoginForm() {
     mutationFn: login,
     onSuccess: (data) => {
       setUser(data.user);
-      alert("로그인 성공");
+      alert(`환영합니다~!!`);
       navigate("/");
     },
     onError: (error) => {

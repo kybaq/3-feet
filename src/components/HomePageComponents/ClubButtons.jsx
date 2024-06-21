@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchClubs } from "../../apis/supabase/supabase.api";
 import IconButton from "../IconButton/IconButton";
-function ClubButtons() {
+function ClubButtons({ focusId }) {
   const [clubs, setClubs] = useState([]);
 
   useEffect(() => {
@@ -13,9 +13,9 @@ function ClubButtons() {
   }, []);
 
   return (
-    <div className="grid grid-rows-2 grid-flow-col justify-center items-center mt-3 gap-5 p-8 ">
+    <div className="grid grid-rows-2  grid-flow-col justify-center items-center mt-3 gap-5 p-8 ">
       {clubs.map((club) => (
-        <IconButton key={club.id} src={club.logo_url} clubId={club.id} />
+        <IconButton key={club.id} src={club.logo_url} clubId={club.id} isFocused={club.id === focusId} />
       ))}
     </div>
   );
