@@ -14,7 +14,7 @@ function HomePage() {
   const { user } = useUserStore();
   useEffect(() => {
     const getClubData = async () => {
-      const data = await fetchClubById(user.club_id);
+      const data = await fetchClubById(selectedClubId === 0 ? user.club_id : selectedClubId);
       setClub(data);
       setLatitude(data.latitude);
       setLongitude(data.longitude);
