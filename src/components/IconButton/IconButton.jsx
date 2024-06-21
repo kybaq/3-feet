@@ -2,9 +2,7 @@ import useSelectedClubStore from "../../store/useSelectedClubStore";
 
 function IconButton({ src, clubId, isFocused }) {
   const { setSelectedClubId } = useSelectedClubStore();
-  if (isFocused) {
-    console.log("선택된 클럽 아이디", clubId);
-  }
+
   return (
     <button
       className={`relative bg-gray-400 bg-opacity-50 rounded-[10px] flex justify-center items-center mx-4 mt-3 p-4 w-[85%] h-[85%] shadow-md
