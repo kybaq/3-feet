@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import supabase from "../../apis/supabase/supabase.config";
+import useUserStore from "../../store/useUserStore";
 
 function MyPage() {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ function MyPage() {
   const [ischecked, setIschecked] = useState(false);
   const [nicknameValidation, setNicknameVaildation] = useState(false);
   const [nicknameError, setNicknameError] = useState("");
+  const { setUser: setUserStore } = useUserStore();
 
   useEffect(() => {
     const getTeams = async () => {
@@ -21,6 +23,31 @@ function MyPage() {
     };
     getTeams();
   }, []);
+
+  useEffect(() => {
+    // 이미 로그인 되어 있는 사용자의 id or email
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      const { data: loginUser } = await supabase.from("users").select("*").eq("id", user.id).limit(1).single();
+      setUser(loginUser); // data.club_id -> 9
+      setSelectedTeamId(loginUser.club_id);
+      setImgPreview(loginUser.avatar_image);
+      setInput(loginUser.nickname);
+    };
+    getUser();
+  }, []);
+
+  useEffect(() => {
+    if (selectedTeamId) {
+      const getLogo = async () => {
+        const { data } = await supabase.from("clubs").select("logo_url").eq("id", selectedTeamId).limit(1).single();
+        setLogo(data);
+      };
+      getLogo();
+    }
+  }, [selectedTeamId]);
 
   const getNickname = async () => {
     setIschecked(true);
@@ -35,34 +62,7 @@ function MyPage() {
   };
   // getNickname();
 
-  useEffect(() => {
-    if (selectedTeamId) {
-      const getLogo = async () => {
-        const { data } = await supabase.from("clubs").select("logo_url").eq("id", selectedTeamId).limit(1).single();
-        setLogo(data);
-      };
-      getLogo();
-    }
-  }, [selectedTeamId]);
-
   // TODO: 성욱님과 함께 의논해서 수정하기 -> 임시로 만든 것
-
-  useEffect(() => {
-    // 이미 로그인 되어 있는 사용자의 id or email
-    const getUser = async () => {
-      const { data } = await supabase
-        .from("users")
-        .select("*")
-        .eq("id", "7d1de00f-2328-43f3-81a3-b32037744a23")
-        .limit(1)
-        .single();
-      setUser(data); // data.club_id -> 9
-      setSelectedTeamId(data.club_id);
-      setImgPreview(data.avatar_image);
-      setInput(data.nickname);
-    };
-    getUser();
-  }, []);
 
   const onClickHandle = async () => {
     if (input.length < 2 || input.length > 5) {
@@ -74,8 +74,14 @@ function MyPage() {
     await supabase
       .from("users")
       .update({ nickname: input, avatar_image: imgPreview, club_id: selectedTeamId })
-      .eq("id", "7d1de00f-2328-43f3-81a3-b32037744a23")
-      .select();
+      .eq("id", user.id);
+    setUserStore({
+      id: user.id,
+      email: user.email,
+      nickname: input,
+      avatar_image: imgPreview,
+      club_id: selectedTeamId,
+    });
     alert("수정이 완료되었습니다!");
     navigate("/");
   };
@@ -92,7 +98,7 @@ function MyPage() {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="rounded flex justify-center items-center flex-row gap-[150px] border border-primary-blue w-[800px] h-[450px]">
+      <div className="shadow-lg rounded-[10px] flex justify-center items-center flex-row gap-[150px] border border-primary-blue w-[800px] h-[450px]">
         <div>
           <div className="relative scale-140">
             <img
@@ -107,10 +113,10 @@ function MyPage() {
             </label>
           </div>
           {/* TODO: 로그인, 회원가입 끝나면 이거 수정 */}
-          <div className="text-center mt-10">sparta@gmail.com</div>
+          <div className="text-center mt-10">{""}</div>
         </div>
         <div>
-          <div className="mb-2">관심있는 구단</div>
+          <div className="mb-2 font-bold">관심있는 구단</div>
           <div className="flex flex-row items-center">
             {logo ? (
               <img src={logo.logo_url} className=" w-[150px] h-[110px] mt-3" />
@@ -133,7 +139,7 @@ function MyPage() {
             </select>
           </div>
           <div className="mt-5">
-            <div className="ml-[7px] mb-2">닉네임 변경</div>
+            <div className="ml-[7px] mb-2 font-bold">닉네임 변경</div>
             <div className="relative">
               <input
                 className="px-[10px] py-1 w-full border rounded border-black-300 placeholder:text-black-default "
@@ -149,11 +155,11 @@ function MyPage() {
             <div className="text-red-500 mt-1">{nicknameError}</div>
           </div>
           <div className="flex flex-col gap-2 mt-4">
-            <button onClick={onClickHandle} className="bg-primary-blue text-white py-1 rounded-lg">
+            <button onClick={onClickHandle} className="bg-primary-blue text-white py-1 rounded-lg hover:bg-blue-700">
               수정
             </button>
-            {/* <button className="bg-red-500 text-white py-1 rounded-lg" onClick={removeUser}>
-              탈퇴
+            {/* <button className="bg-red-500 text-white py-1 rounded-lg hover:bg-red-600" onClick={() => navigate("/")}>
+              나가기
             </button> */}
           </div>
         </div>

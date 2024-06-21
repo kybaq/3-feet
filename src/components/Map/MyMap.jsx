@@ -6,6 +6,7 @@ import useSelectedClubStore from "../../store/useSelectedClubStore";
 import useCenterCoordsStore from "../../store/useCenterCoordsStore";
 import { DEFAULT_ZOOM } from "../../constants/constants";
 import usePlacesCoordsStore from "../../store/usePlacesCoordsStore";
+import baseballField from "../../assets/Icons/baseball-field.png";
 
 function MyMap() {
   // NOTE: 공식 문서 상에서는 지도 DOM 요소 선택 시 useState 를 ref 로서 사용
@@ -51,11 +52,36 @@ function MyMap() {
   }
 
   return (
-    <NaverMap defaultCenter={centerCoords} defaultZoom={DEFAULT_ZOOM} ref={mapRef} minZoom={DEFAULT_ZOOM}>
-      <Marker position={centerCoords} />
+    <NaverMap
+      defaultCenter={centerCoords}
+      defaultZoom={DEFAULT_ZOOM}
+      ref={mapRef}
+      minZoom={DEFAULT_ZOOM}
+      zoomControl={true}
+      zoomControlOptions={{
+        position: naverMaps.Position.TOP_LEFT,
+        style: naverMaps.ZoomControlStyle.SMALL,
+      }}
+    >
+      <Marker
+        position={centerCoords}
+        onClick={() => mapRef.current.panTo(centerCoords)}
+        icon={{
+          content: `<button class="marker-tooltip">
+                <div class="marker-tooltipr"><img src=${baseballField} width="32px"/> 홈 구장</div>
+                </button>`,
+        }}
+      />
+
       {placesCoords &&
         placesCoords.map((placesCoord, index) => {
-          return <Marker key={index} position={new naverMaps.LatLng(placesCoord.latitude, placesCoord.longitude)} />;
+          return (
+            <Marker
+              key={index}
+              position={new naverMaps.LatLng(placesCoord.latitude, placesCoord.longitude)}
+              onClick={() => mapRef.current.panTo(new naverMaps.LatLng(placesCoord.latitude, placesCoord.longitude))}
+            />
+          );
         })}
       {/* marker 클릭 시 zoom 하는 효과? */}
       {/* TODO: panning 해도 화면에 보이는 영역만 marker 하기 */}

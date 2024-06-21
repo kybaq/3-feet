@@ -3,7 +3,7 @@ import { immer } from "zustand/middleware/immer";
 
 const useSelectedClubStore = create(
   immer((set) => ({
-    selectedClubId: 1,
+    selectedClubId: 0,
     setSelectedClubId: (clubId) =>
       set((state) => {
         state.selectedClubId = clubId;
