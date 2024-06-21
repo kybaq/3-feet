@@ -1,9 +1,9 @@
-import React, { useState, useTransition } from "react";
-import MapListItem from "./MapListItem";
-import ToggleButton from "./MapSideBarButton";
 import { useQuery } from "@tanstack/react-query";
+import { useState, useTransition } from "react";
 import { fetchLodgmentList, fetchRestaurantList } from "../../apis/tourism/tourism.api";
 import useCenterCoordsStore from "../../store/useCenterCoordsStore";
+import MapListItem from "./MapListItem";
+import ToggleButton from "./MapSideBarButton";
 
 function MapSidebar() {
   const { centerCoords } = useCenterCoordsStore();

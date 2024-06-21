@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import supabase from "../../apis/supabase/supabase.config";
 import useUserStore from "../../store/useUserStore";
@@ -62,8 +62,14 @@ function LoginForm() {
     mutationFn: login,
     onSuccess: (data) => {
       setUser(data.user);
-      alert(`환영합니다~!!`);
-      navigate("/");
+      alert("로그인 성공");
+      const queryParams = new URLSearchParams(location.search);
+      const redirectUrl = queryParams.get("redirect");
+      if (redirectUrl) {
+        window.location.href = decodeURIComponent(redirectUrl);
+      } else {
+        navigate("/");
+      }
     },
     onError: (error) => {
       if (error.message !== "유효성 검사 실패") {

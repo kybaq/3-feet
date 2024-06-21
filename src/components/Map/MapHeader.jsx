@@ -1,6 +1,5 @@
-import React from "react";
-import ClubList from "./ClubList";
 import { Link } from "react-router-dom";
+import ClubList from "./ClubList";
 
 function MapHeader() {
   return (

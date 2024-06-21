@@ -14,6 +14,7 @@ function Header() {
     setUser(null);
     navigate("/");
   };
+
   return (
     <header className="bg-blue-200 flex items-center justify-center h-[64px] w-[full]">
       <center className="flex items-center justify-between h-[64px] w-[1080px]">

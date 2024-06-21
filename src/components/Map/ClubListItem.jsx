@@ -1,4 +1,3 @@
-import React from "react";
 import useSelectedClubStore from "../../store/useSelectedClubStore";
 
 function ClubListItem({ clubs }) {

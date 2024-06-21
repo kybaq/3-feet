@@ -1,6 +1,5 @@
-import React from "react";
-import MyMap from "./MyMap";
 import { Container as MapContainer } from "react-naver-maps";
+import MyMap from "./MyMap";
 
 const NaverMapContainer = () => {
   return (

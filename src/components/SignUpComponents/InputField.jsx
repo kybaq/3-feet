@@ -1,5 +1,3 @@
-import React from "react";
-
 function InputField({ label, type, placeholder, value, onChange, errorMessage, children }) {
   return (
     <div className="mb-4">
