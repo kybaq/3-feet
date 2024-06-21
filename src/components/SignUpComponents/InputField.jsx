@@ -1,5 +1,3 @@
-import React from "react";
-
 function InputField({ label, type, placeholder, value, onChange, errorMessage, children }) {
   return (
     <div className="mb-4">
@@ -7,7 +5,7 @@ function InputField({ label, type, placeholder, value, onChange, errorMessage, c
       <div className="relative">
         <input
           type={type}
-          className="w-full h-12 px-3 py-2 border rounded-[10px]"
+          className="w-full h-12 px-3 py-2 pr-28 border rounded-[10px]"
           placeholder={placeholder}
           value={value}
           onChange={onChange}

@@ -1,8 +1,15 @@
-import { create } from 'zustand'
+import { create } from "zustand";
 
 const useUserStore = create((set) => ({
-    user: null,
-    setUser: (newUser) => set(() => ({ user: newUser }))
-}))
+  user: JSON.parse(localStorage.getItem("user")) || null,
+  setUser: (newUser) => {
+    localStorage.setItem("user", JSON.stringify(newUser));
+    set(() => ({ user: newUser }));
+  },
+  logout: () => {
+    localStorage.removeItem("user");
+    set(() => ({ user: null }));
+  },
+}));
 
-export default useUserStore
+export default useUserStore;

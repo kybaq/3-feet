@@ -3,37 +3,58 @@ import { createContext, useContext, useEffect, useState } from "react";
 const initialValue = {
   open: () => {},
   close: () => {},
+  isOpen: 0,
 };
 
 const ModalContext = createContext(initialValue);
 
 export const useModal = () => useContext(ModalContext);
 
+export const useClickOutside = (ref, callback, modalId) => {
+  const handleClick = (e) => {
+    const modalElement = document.querySelector(`[data-modal-id="${modalId}"]`);
+
+    if (modalElement && !ref.current?.contains(e.target)) {
+      callback();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClick);
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  });
+};
+
 export default function ModalProvider({ children }) {
-  const [modalElement, setModalElement] = useState(null);
+  const [modalElementStack, setModalElementStack] = useState([]);
 
   // 스크롤 방지 기능
   useEffect(() => {
-    if (modalElement) {
+    if (modalElementStack.length > 0) {
       document.documentElement.style.overflow = "hidden";
     } else {
       document.documentElement.style.overflow = "";
     }
-  }, [modalElement]);
+  }, [modalElementStack]);
 
   const value = {
     open: (element) => {
-      setModalElement(element);
+      setModalElementStack((prevStack) => [...prevStack, element]);
     },
     close: () => {
-      setModalElement(null);
+      setModalElementStack((prevStack) => prevStack.slice(0, -1));
     },
+    isOpen: modalElementStack.length > 0,
   };
 
   return (
     <ModalContext.Provider value={value}>
       {children}
-      {modalElement}
+      {modalElementStack.map((ModalElement, index) => (
+        <div key={index}>{ModalElement}</div>
+      ))}
     </ModalContext.Provider>
   );
 }

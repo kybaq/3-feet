@@ -1,11 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../components/Layouts/Layout";
-import Map from "../pages/Map/Map";
 import HomePage from "../pages/HomePage/HomePage";
 import LoginPage from "../pages/LoginPage/LoginPage";
-import SignUpPage from "../pages/SignUpPage/SingUpPage";
+import Map from "../pages/Map/Map";
 import MyPage from "../pages/MyPage/MyPage";
-import DetailPage from "./../pages/DetailPage/DetailPage";
+import SignUpPage from "../pages/SignUpPage/SingUpPage";
 
 const router = createBrowserRouter([
   {
@@ -31,8 +30,8 @@ const router = createBrowserRouter([
     element: <Map />,
   },
   {
-    path: "map/detail/:id",
-    element: <DetailPage />,
+    path: "/mypage",
+    element: <MyPage />,
   },
 ]);
 
